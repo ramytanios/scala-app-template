@@ -43,4 +43,4 @@ jobs:
       with:
         artifacts: test-app-${{ matrix.release_suffix }}.zip
         generateReleaseNotes: true
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.GH_TOKEN }}
