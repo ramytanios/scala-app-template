@@ -36,6 +36,7 @@ lazy val app = project
     buildInfoKeys              := Seq(name, version, scalaVersion, sbtVersion),
     buildInfoPackage           := "app",
     assembly / mainClass       := Some("app.App"),
+    assembly / assemblyJarName := "app",
     assembly / assemblyPrependShellScript := {
       import sbtassembly.AssemblyPlugin.defaultShellScript
       Some(defaultShellScript)

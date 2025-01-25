@@ -1,0 +1,46 @@
+name: Deployment
+
+jobs:
+  dist:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        scala: [3.6.2]
+        java: [zulu@21]
+        include:
+          - os: ubuntu-latest
+            release_suffix: linux
+            upload: true
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Git checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Java (zulu@21)
+      if: matrix.java == 'zulu@21'
+      uses: actions/setup-java@v4
+      with:
+        distribution: zulu
+        java-version: 21
+        cache: sbt
+
+    - name: Setup sbt
+      uses: sbt/setup-sbt@v1
+
+    - name: Compile
+      run: sbt compile
+
+    - name: Package
+      run: sbt assembly
+
+    - name: Zip
+      run: zip -rj test-app-${{ matrix.release_suffix }}.zip .app/target/scala-3.6.2/app
+
+    - name: Release
+      if: matrix.upload
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: test-app-${{ matrix.release_suffix }}.zip
+        generateReleaseNotes: true
+        token: ${{ secrets.GITHUB_TOKEN }}
