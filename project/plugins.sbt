@@ -1,21 +1,17 @@
 lazy val V = new {
-  val tl           = "0.6.3"
-  val scalafix     = "0.14.0"
-  val scalafmt     = "2.5.4"
-  val mdoc         = "2.5.2"
-  val updates      = "0.6.3"
-  val scalajs      = "1.16.0"
-  val crossproject = "1.3.2"
-  val sbt          = "2.1.0"
-  val actions      = "0.24.0"
-  val release      = "1.4.0"
-  val tpolecat     = "0.5.2"
+  val scalafix  = "0.14.0"
+  val scalafmt  = "2.5.4"
+  val updates   = "0.6.3"
+  val sbt       = "2.1.0"
+  val tpolecat  = "0.5.2"
+  val buildInfo = "0.13.1"
+  val assembly  = "2.3.1"
 }
 
-addSbtPlugin("com.timushev.sbt"   % "sbt-updates"              % V.updates)
-addSbtPlugin("ch.epfl.scala"      % "sbt-scalafix"             % V.scalafix)
-addSbtPlugin("org.scalameta"      % "sbt-scalafmt"             % V.scalafmt)
-addSbtPlugin("com.github.sbt"     % "sbt-git"                  % V.sbt)
-addSbtPlugin("com.github.sbt"     % "sbt-github-actions"       % V.actions)
-addSbtPlugin("com.github.sbt"     % "sbt-release"              % V.release)
-addSbtPlugin("org.typelevel"      % "sbt-tpolecat"             % V.tpolecat)
+addSbtPlugin("com.timushev.sbt" % "sbt-updates"   % V.updates)
+addSbtPlugin("ch.epfl.scala"    % "sbt-scalafix"  % V.scalafix)
+addSbtPlugin("org.scalameta"    % "sbt-scalafmt"  % V.scalafmt)
+addSbtPlugin("com.github.sbt"   % "sbt-git"       % V.sbt)
+addSbtPlugin("org.typelevel"    % "sbt-tpolecat"  % V.tpolecat)
+addSbtPlugin("com.eed3si9n"     % "sbt-buildinfo" % V.buildInfo)
+addSbtPlugin("com.eed3si9n"     % "sbt-assembly"  % V.assembly)

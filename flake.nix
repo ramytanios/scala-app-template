@@ -43,8 +43,12 @@
                   nix.enable = true;
                   java.enable = true;
                   scala.enable = true;
+                  scala.sbt.enable = true;
                 };
                 scripts = {
+                  fix.exec = ''
+                    sbt 'scalafmtAll;scalafixAll'
+                  '';
                   compile-watch.exec = ''
                     sbt '~compile'
                   '';
