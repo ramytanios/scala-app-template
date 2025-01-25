@@ -39,7 +39,7 @@ jobs:
       run: sbt assembly
 
     - name: Zip
-      run: zip -rj test-app-${{ matrix.release_suffix }}.zip .app/target/scala-3.6.2/app
+      run: zip -rj test-app-${{ matrix.release_suffix }}.zip ./app/target/scala-3.6.2/app
 
     - name: Release
       if: matrix.upload
