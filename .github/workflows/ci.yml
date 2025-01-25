@@ -40,12 +40,12 @@ jobs:
       run: sbt assembly
 
     - name: Zip
-      run: zip -rj test-app-${{ matrix.release_suffix }}.zip ./app/target/scala-3.6.2/app
+      run: zip -rj dummy-app-${{ matrix.release_suffix }}.zip ./app/target/scala-3.6.2/dummy-app
 
     - name: Release
       if: matrix.upload
       uses: ncipollo/release-action@v1
       with:
-        artifacts: test-app-${{ matrix.release_suffix }}.zip
+        artifacts: dummy-app-${{ matrix.release_suffix }}.zip
         generateReleaseNotes: true
         token: ${{ secrets.GH_TOKEN }}
