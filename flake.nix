@@ -39,6 +39,10 @@
 
     in
     {
+      overlays.default = final: _: {
+        ${pname} = mkApp final;
+      };
+
       packages = forEachSystem (
         system:
 
@@ -84,10 +88,5 @@
           };
         }
       );
-
-      overlays.default = final: _: {
-        ${pname} = mkApp final;
-      };
-
     };
 }
