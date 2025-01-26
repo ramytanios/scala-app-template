@@ -37,9 +37,9 @@
           dummy-app = pkgs.stdenv.mkDerivation {
             pname = "dummy-app";
             version = appVersion;
-            src = pkgs.fetchUrl {
+            src = pkgs.fetchurl {
               url = "https://github.com/ramytanios/scala-cli-app-template/releases/download/v${appVersion}/dummy-app-linux.zip";
-              hash = "";
+              hash = "sha256-vFxsQqOP04/gE5L8qGGny751NRy9CV01/SGHjHd0wyU=";
             };
           };
         }
