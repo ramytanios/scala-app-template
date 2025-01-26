@@ -21,12 +21,30 @@
     }@inputs:
     let
       forEachSystem = nixpkgs.lib.genAttrs (import systems);
+      appVersion = "0.0.2";
     in
     {
-      packages = forEachSystem (system: {
-        devenv-up = self.devShells.${system}.default.config.procfileScript;
-        devenv-test = self.devShells.${system}.default.config.test;
-      });
+      packages = forEachSystem (
+        system:
+
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          devenv-up = self.devShells.${system}.default.config.procfileScript;
+          devenv-test = self.devShells.${system}.default.config.test;
+
+          dummy-app = pkgs.stdenv.mkDerivation {
+            pname = "dummy-app";
+            version = appVersion;
+            src = pkgs.fetchUrl {
+              url = "https://github.com/ramytanios/scala-cli-app-template/releases/download/v${appVersion}/dummy-app-linux.zip";
+              hash = "";
+            };
+          };
+        }
+
+      );
 
       devShells = forEachSystem (
         system:
@@ -65,5 +83,6 @@
           };
         }
       );
+
     };
 }
