@@ -71,12 +71,6 @@
                   fix.exec = ''
                     sbt 'scalafmtAll;scalafixAll'
                   '';
-                  compile-watch.exec = ''
-                    sbt '~compile'
-                  '';
-                  update-workflow.exec = ''
-                    sbt githubWorkflowGenerate
-                  '';
                   git-clean.exec = ''
                     git clean -Xdf
                   '';
