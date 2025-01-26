@@ -33,6 +33,7 @@
         with pkgs;
         {
           devenv-up = self.devShells.${system}.default.config.procfileScript;
+
           devenv-test = self.devShells.${system}.default.config.test;
 
           dummy-app = stdenv.mkDerivation {
@@ -52,7 +53,6 @@
 
           };
         }
-
       );
 
       devShells = forEachSystem (
