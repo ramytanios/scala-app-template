@@ -19,20 +19,20 @@
 
       url = "https://github.com/ramytanios/scala-app-template";
 
-      version = "0.0.2";
+      version = "0.0.5"; # reset the hash when you change the version!
 
       pname = "dummy-app";
 
       mkApp =
-        pkgs:
+        pkgs: system:
         with pkgs;
         stdenv.mkDerivation {
           inherit version;
           inherit pname;
-          buildInputs = [ java ];
+          buildInputs = [ jdk ];
           src = fetchzip {
-            url = "${url}/releases/download/v${version}/${pname}-linux.zip";
-            hash = "sha256-WrTZO1J0H9M5WwdrqYI83A6Y8iPNAjfJ/bH3DrDHP3w=";
+            url = "${url}/releases/download/v${version}/${pname}-${system}.zip";
+            hash = "sha256-7AYDr2k/NaFA9ByxjgELoTox2kvAX0biMvUyVd44tFc=";
           };
           installPhase = ''
             mkdir -p $out/bin
@@ -42,8 +42,8 @@
 
     in
     {
-      overlays.default = final: _: {
-        ${pname} = mkApp final;
+      overlays.default = final: prev: {
+        ${pname} = mkApp final prev.system;
       };
 
       packages = forEachSystem (
@@ -56,7 +56,7 @@
           devenv-up = self.devShells.${system}.default.config.procfileScript;
           devenv-test = self.devShells.${system}.default.config.test;
 
-          ${pname} = mkApp pkgs;
+          ${pname} = mkApp pkgs system;
         }
       );
 
