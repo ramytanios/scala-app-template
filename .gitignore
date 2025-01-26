@@ -7,3 +7,4 @@ metals.sbt
 **/dumps/
 .devenv/
 .direnv/
+result/

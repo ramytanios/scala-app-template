@@ -30,17 +30,26 @@
         let
           pkgs = nixpkgs.legacyPackages.${system};
         in
+        with pkgs;
         {
           devenv-up = self.devShells.${system}.default.config.procfileScript;
           devenv-test = self.devShells.${system}.default.config.test;
 
-          dummy-app = pkgs.stdenv.mkDerivation {
+          dummy-app = stdenv.mkDerivation {
             pname = "dummy-app";
+
             version = appVersion;
-            src = pkgs.fetchurl {
+
+            src = fetchzip {
               url = "https://github.com/ramytanios/scala-cli-app-template/releases/download/v${appVersion}/dummy-app-linux.zip";
-              hash = "sha256-vFxsQqOP04/gE5L8qGGny751NRy9CV01/SGHjHd0wyU=";
+              hash = "sha256-WrTZO1J0H9M5WwdrqYI83A6Y8iPNAjfJ/bH3DrDHP3w=";
             };
+
+            installPhase = ''
+              mkdir -p $out/bin
+              cp dummy-app $out/bin
+            '';
+
           };
         }
 
