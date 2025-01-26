@@ -24,7 +24,10 @@
       pname = "dummy-app";
 
       mkApp =
-        pkgs: system:
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
         with pkgs;
         stdenv.mkDerivation {
           inherit version;
@@ -42,23 +45,16 @@
 
     in
     {
-      overlays.default = final: prev: {
-        ${pname} = mkApp final prev.system;
+      overlays.default = _: prev: {
+        ${pname} = mkApp _ prev.system;
       };
 
-      packages = forEachSystem (
-        system:
+      packages = forEachSystem (system: {
+        devenv-up = self.devShells.${system}.default.config.procfileScript;
+        devenv-test = self.devShells.${system}.default.config.test;
 
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-        in
-        {
-          devenv-up = self.devShells.${system}.default.config.procfileScript;
-          devenv-test = self.devShells.${system}.default.config.test;
-
-          ${pname} = mkApp pkgs system;
-        }
-      );
+        ${pname} = mkApp system;
+      });
 
       devShells = forEachSystem (
         system:
