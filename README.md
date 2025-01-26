@@ -1,3 +1,3 @@
 ```nix 
-nix run .#dummy-app -- --message "hello world"
+nix run .#dummy-app --refresh -- --message "hello world"
 ```

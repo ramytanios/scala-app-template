@@ -27,6 +27,7 @@
         stdenv.mkDerivation {
           inherit version;
           inherit pname;
+          buildInputs = [ java ];
           src = fetchzip {
             url = "${url}/releases/download/v${version}/${pname}-linux.zip";
             hash = "sha256-WrTZO1J0H9M5WwdrqYI83A6Y8iPNAjfJ/bH3DrDHP3w=";

@@ -1,21 +1,28 @@
+---
 name: Deployment
 
-on:  
+on:
   push:
-    tags:
-    - '*'
-      
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
   dist:
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, macos-latest]
+        arch: [x86_64, aarch64]
         scala: [3.6.2]
         java: [zulu@21]
         include:
           - os: ubuntu-latest
             release_suffix: linux
-            upload: true
+          - os: macos-latest
+            release_suffix: darwin
+
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -40,12 +47,12 @@ jobs:
       run: sbt assembly
 
     - name: Zip
-      run: zip -rj dummy-app-${{ matrix.release_suffix }}.zip ./app/target/scala-3.6.2/dummy-app
+      run: zip -rj dummy-app-${{ matrix.release_suffix }}-${{ matrix.arch }}.zip ./app/target/scala-3.6.2/dummy-app
 
     - name: Release
       if: matrix.upload
       uses: ncipollo/release-action@v1
       with:
-        artifacts: dummy-app-${{ matrix.release_suffix }}.zip
+        artifacts: dummy-app-${{ matrix.release_suffix }}-${{ matrix.arch }}.zip
         generateReleaseNotes: true
         token: ${{ secrets.GH_TOKEN }}
