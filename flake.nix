@@ -46,7 +46,7 @@
     in
     {
       overlays.default = _: prev: {
-        ${pname} = mkApp _ prev.system;
+        ${pname} = mkApp prev.system;
       };
 
       packages = forEachSystem (system: {
