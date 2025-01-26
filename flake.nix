@@ -86,7 +86,7 @@
       );
 
       overlays.default = final: _: {
-        pname = mkApp final;
+        ${pname} = mkApp final;
       };
 
     };
