@@ -17,7 +17,7 @@
     let
       forEachSystem = nixpkgs.lib.genAttrs (import systems);
 
-      url = "https://github.com/ramytanios/scala-cli-app-template";
+      url = "https://github.com/ramytanios/scala-app-template";
       version = "0.0.2";
       pname = "dummy-app";
 
