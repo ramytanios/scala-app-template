@@ -40,7 +40,7 @@
 
             version = appVersion;
 
-            src = fetchzip { # unzip by default
+            src = fetchzip {
               url = "https://github.com/ramytanios/scala-cli-app-template/releases/download/v${appVersion}/dummy-app-linux.zip";
               hash = "sha256-WrTZO1J0H9M5WwdrqYI83A6Y8iPNAjfJ/bH3DrDHP3w=";
             };
