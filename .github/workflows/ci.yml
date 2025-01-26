@@ -56,4 +56,5 @@ jobs:
       with:
         artifacts: dummy-app-${{ matrix.arch }}-${{ matrix.release_suffix }}.zip
         generateReleaseNotes: true
+        allowUpdates: true
         token: ${{ secrets.GH_TOKEN }}
